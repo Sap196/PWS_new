@@ -18,5 +18,3 @@ START https://rentry.co/9kpphkvk
 rem Remove files and the script
 del encrypt.exe
 del output.txt
-del main.vbs
-del "%~f0"
